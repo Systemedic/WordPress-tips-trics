@@ -1,5 +1,8 @@
-// this will remove add to cart button and add a read more button to all products in the cart. and remove the add to cart everywhere. 
-// only for logged out users 
+/**
+* @snippet       Removes add to cart button and add a read more button for products instead of add to cart. Only for guest.
+* @author        Systemedic
+* @URL		 https://systemedic.nl/
+*/
  
 add_action( 'init', 'shessvy_hide_price_add_cart_not_logged_in' );
  
