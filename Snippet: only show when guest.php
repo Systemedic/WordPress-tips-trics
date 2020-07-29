@@ -1,7 +1,7 @@
 /**
-* @snippet       Add text for guests only using shortcodes. Shortcode: [guest_only]TEXT HERE[/guest_only]
-* @author        Systemedic
-* @URL			 https://systemedic.nl/
+* @snippet        Add text for guests only using shortcodes. Shortcode: [guest_only]TEXT HERE[/guest_only]
+* @author         Systemedic
+* @URL			  https://systemedic.nl/
 */
 
 function guest_only_shortcode($atts, $content = null)
