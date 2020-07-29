@@ -1,7 +1,7 @@
 /**
 * @snippet       Change logo at wp-login.php page. Ideal size for logo: 274 x 63 pixels
 * @author        Systemedic
-* @URL			      https://systemedic.nl/
+* @URL			     https://systemedic.nl/
 */
 
 function custom_admin_logo() {
