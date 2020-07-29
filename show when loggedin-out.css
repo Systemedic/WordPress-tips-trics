@@ -1,0 +1,4 @@
+/* Show specific class only when logged in or logged out */
+
+.button-class {display: none;}
+.logged-in .button-class {display: block;}
