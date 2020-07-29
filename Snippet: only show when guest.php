@@ -1,4 +1,8 @@
-//With this code you can add text that only guest users can see. Use the [guest_only][/guest_only] short code for this.
+/**
+* @snippet       Add text for guests only using shortcodes. Shortcode: [guest_only]TEXT HERE[/guest_only]
+* @author        Systemedic
+* @URL			 https://systemedic.nl/
+*/
 
 function guest_only_shortcode($atts, $content = null)
 {
