@@ -1,3 +1,9 @@
+/**
+* @snippet        Add Systemedic Support form in WP Dashboard
+* @author         Systemedic
+* @URL            https://systemedic.nl/
+*/
+
 add_action('wp_dashboard_setup', 'my_custom_dashboard_widgets');
  
 function my_custom_dashboard_widgets() {
