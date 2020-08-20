@@ -1,0 +1,53 @@
+/**
+* Downloads a URL, or returns it from the cache
+* The function tries to act intelligently:
+*   (1) The file will be cached for the time specified in $cache_time, which defaults to the time given by the 'Cache-control:' header.
+*   (2) If cache-control time is overridden, the 'cache-control' and 'expires' headers will be modified before being returned/cached, so that you can easily output appropriate headers if you need to.
+* @param string $url - the URL to be downloaded or returned
+* @param integer $suggested_cache_time - the time to cache the file for (in seconds). If the time given by the 'Cache-control:' header is longer, this value will be overridden. If no time is provided by this variable or by the header, then the time will be set to 1 day
+* @param boolean $also_return_headers
+* @return mixed - if an error occurs, returns WP_ERROR. Otherwise, if $also_return_headers is true, returns an array with the keys 'body', 'headers', 'response' and 'cookies', otherwise returns the body as a string. See the documentation for wp_remote_get for examples.
+*/
+function emw_get_cached_url ($url, $suggested_cache_time = 0, $also_return_headers = false) {
+    $name = 'egcu-'.md5($url); // A short, unique name for the file to be cached
+    // Return from the cache if possible
+    if ($item = get_transient ($name)) {
+        $v = unserialize(base64_decode($item));
+        if ($also_return_headers)
+            return unserialize(base64_decode($item));
+        else
+            return $v['body'];
+    } else {
+        // Download the file
+        $download = wp_remote_get ($url, array ('timeout' => 30, 'sslverify' => false));
+        // Check for error
+        if (is_wp_error ($download))
+            return $download;
+        else {
+            // Calculate the cache time from the headers
+            $actual_cache_time = $suggested_cache_time;
+            if (isset($download['headers']['cache-control']) && ($start = strpos($download['headers']['cache-control'], 'max-age=')+8) !== FALSE) {
+                $headers_cache_time = substr($download['headers']['cache-control'], $start);
+                if (($a = strpos($headers_cache_time, ',')) !== FALSE)
+                    $headers_cache_time = substr($headers_cache_time, 0, $a);
+                if ($headers_cache_time > $suggested_cache_time)
+                    $actual_cache_time = $headers_cache_time;
+            }
+            // If no cache time is specified in the headers or the $suggested_cache_time variable, set the cache to 1 day
+            if ($actual_cache_time == 0)
+                $actual_cache_time = 86400;
+            // Modify the headers to take account of the new cache time
+            if (!isset($download['headers']['date']))
+                $download['headers']['date'] = gmdate('D, d M Y H:i:s \G\M\T', $t = time());
+            $download['headers']['cache-control'] = "public, max-age=".round($actual_cache_time*1.01);  // Multiplying by 1.01 ensures the browser will cache the file for slightly longer than the server. This ensures that by the time the browser requests the file again, it will have definitely been refreshed.
+            $download['headers']['expires'] = gmdate('D, d M Y H:i:s \G\M\T', $t+(round($actual_cache_time*1.01)));
+            // Cache the download
+            set_transient ($name, base64_encode(serialize($download)), $actual_cache_time);
+            // Return what was requested
+            if ($also_return_headers)
+                return $download;
+            else
+                return $download['body'];
+        }
+    }
+}
