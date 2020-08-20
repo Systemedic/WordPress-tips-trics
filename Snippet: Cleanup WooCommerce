@@ -1,6 +1,9 @@
 /**
- * Remove WooCommerce Generator tag, styles, and scripts from non WooCommerce pages.
- */
+* @snippet        Remove WooCommerce Generator tag, styles, and scripts from non WooCommerce pages.
+* @author         Systemedic
+* @URL            https://systemedic.nl/
+*/
+
 add_action( 'wp_enqueue_scripts', 'child_manage_woocommerce_styles', 99 );
   
 function child_manage_woocommerce_styles() {
