@@ -1,4 +1,10 @@
 /**
+* @snippet        Downloads a URL, or returns it from the cache
+* @author         Systemedic
+* @URL            https://systemedic.nl/
+*/
+
+/**
 * Downloads a URL, or returns it from the cache
 * The function tries to act intelligently:
 *   (1) The file will be cached for the time specified in $cache_time, which defaults to the time given by the 'Cache-control:' header.
