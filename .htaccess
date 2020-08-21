@@ -1,0 +1,202 @@
+#collection of usefull .htaccess rules
+
+#wp-login only reachable from specific IP
+#Place this code in a .htaccess file in the wp-admin folder
+AuthUserFile /dev/null
+AuthGroupFile /dev/null
+AuthName "WordPress Admin Access Control"
+AuthType Basic
+<LIMIT GET>
+order deny,allow
+deny from all
+# whitelist NAAM IP address
+allow from xx.xx.xx.xxx
+# whitelist NAAM IP address
+allow from xx.xx.xx.xxx
+</LIMIT>
+
+#Disable directory browsing
+Options -Indexes
+
+#Disable PHP query. Place this code in a .htaccess file inside the folders wp-content and wp-includes
+<Files *.php>
+deny from all
+</Files>
+
+#Protect wp-config from changes
+<files wp-config.php>
+order allow,deny
+deny from all
+</files>
+
+#Block IP
+<Limit GET POST>
+order allow,deny
+deny from xxx.xxx.xx.x
+allow from all
+</Limit>
+
+#Protect .htaccess from changes
+<files ~ "^.*\.([Hh][Tt][Aa])">
+order allow,deny
+deny from all
+satisfy all
+</files>
+
+#Block access to XLM-RPC
+<Files xmlrpc.php>
+order deny,allow
+deny from all
+</Files>
+
+#Block searching for username
+RewriteEngine On
+RewriteBase /
+RewriteCond %{QUERY_STRING} (author=\d+) [NC]
+RewriteRule .* - [F]
+
+#Enable GZIP for Linux
+<IfModule mod_deflate.c>
+  # Compress HTML, CSS, JavaScript, Text, XML and fonts
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+  AddOutputFilterByType DEFLATE application/x-font
+  AddOutputFilterByType DEFLATE application/x-font-opentype
+  AddOutputFilterByType DEFLATE application/x-font-otf
+  AddOutputFilterByType DEFLATE application/x-font-truetype
+  AddOutputFilterByType DEFLATE application/x-font-ttf
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE font/opentype
+  AddOutputFilterByType DEFLATE font/otf
+  AddOutputFilterByType DEFLATE font/ttf
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE image/x-icon
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/xml
+
+  # Remove browser bugs (only needed for really old browsers)
+  BrowserMatch ^Mozilla/4 gzip-only-text/html
+  BrowserMatch ^Mozilla/4\.0[678] no-gzip
+  BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+  Header append Vary User-Agent
+</IfModule>
+
+#Enable GZIP for Windows
+mod_gzip_on Yes
+mod_gzip_dechunk Yes
+mod_gzip_item_include file .(html?|txt|css|js|php|pl)$
+mod_gzip_item_include handler ^cgi-script$
+mod_gzip_item_include mime ^text/.*
+mod_gzip_item_include mime ^application/x-javascript.*
+mod_gzip_item_exclude mime ^image/.*
+mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
+
+#Enable Leverage Browser Caching
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Images
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+
+  # Video
+  ExpiresByType video/mp4 "access plus 1 year"
+  ExpiresByType video/mpeg "access plus 1 year"
+
+  # CSS, JavaScript
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  
+  # Fonts
+  # Add correct content-type for fonts
+  AddType application/vnd.ms-fontobject .eot 
+  AddType application/x-font-ttf .ttf
+  AddType application/x-font-opentype .otf
+  AddType application/x-font-woff .woff
+  AddType image/svg+xml .svg
+  # Compress compressible fonts
+  # only uncomment if you dont have compression turned on already. Otherwise it will cause all other filestypes not to get compressed
+  # AddOutputFilterByType DEFLATE application/x-font-ttf application/x-font-opentype image/svg+xml
+  ExpiresActive on
+  # Add a far future Expires header for fonts
+  ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+  ExpiresByType application/x-font-ttf "access plus 1 year"
+  ExpiresByType application/x-font-opentype "access plus 1 year"
+  ExpiresByType application/x-font-woff "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+
+  # Others
+  ExpiresByType application/pdf "access plus 1 month"
+  ExpiresByType application/x-shockwave-flash "access plus 1 month"
+</IfModule>
+
+#Enable HSTS
+Header set Strict-Transport-Security "max-age=31536000" env=HTTPS
+
+#Default WordPress htaccess
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress
+
+#Default 301 redirect
+Redirect 301 /oldurl/ http://www.example.com/newurl
+Redirect 301 /category/television/ 
+http://www.example.com/category/tv/
+
+#HTTP to https redirect
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+#Redirect all 404 with 301 naar home - bad for SEO.
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule . / [L,R=301]
+
+#301 redirect single page
+RewriteRule ^oude-pagina$ /nieuwe-pagina [R=301]
+
+#www to non www 301
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.domeinnaam\.nl [NC]
+RewriteRule ^(.*)$ http://domeinnaam.nl/$1 [R=301]
+
+#non www to www
+RewriteEngine On
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^(.*)$ http://www.domeinnaam.nl/$1 [R=301]
+
+#redirect full domain
+RewriteCond %{HTTP_HOST} ^(.*)oudeurl\.com [NC]
+RewriteRule ^(.*)$ http://nieuweurl.com/$1 [R=301,L]
+
+#directory redirect
+RewriteEngine On
+RewriteRule ^oudedir/(.*)$ /nieuwe/dir/$1 [R=301]
+
+# Prevent image hotlinking in WordPress
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?yourwebsite.com [NC]
+RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?google.com [NC]
+RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?facebook.com [NC]
+RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?twitter.com [NC]
+RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?other-websites-go-here.com [NC]
+RewriteRule \.(jpg|jpeg|png|gif)$ - [F]
