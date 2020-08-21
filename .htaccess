@@ -185,8 +185,7 @@ RewriteCond %{HTTP_HOST} !^www\. [NC]
 RewriteRule ^(.*)$ http://www.domeinnaam.nl/$1 [R=301]
 
 #redirect full domain
-RewriteCond %{HTTP_HOST} ^(.*)oudeurl\.com [NC]
-RewriteRule ^(.*)$ http://nieuweurl.com/$1 [R=301,L]
+Redirect 301 / https://www.newdomain.nl/
 
 #directory redirect
 RewriteEngine On
