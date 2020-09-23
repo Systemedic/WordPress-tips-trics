@@ -1,0 +1,10 @@
+/**
+* @snippet        Add current year with shortcode [year]
+* @author         Systemedic
+* @URL            https://systemedic.nl/
+
+function year_shortcode() {
+$year = date('Y');
+return $year;
+}
+add_shortcode('year', 'year_shortcode');
