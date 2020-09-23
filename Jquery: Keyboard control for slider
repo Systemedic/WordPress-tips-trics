@@ -1,0 +1,14 @@
+/**
+* @snippet        Make it possible to control a slider with the arrow keys on your keyboard.
+* @author         Systemedic
+* @URL            https://systemedic.nl
+
+jQuery(function() {
+	jQuery(document).keydown(function(eventObject) {
+		if(eventObject.which==37) { //left arrow
+			jQuery('.xxxx').click(); //Emulates click on prev button. Replace .xxxx with css class of prev arrow
+		} else if(eventObject.which==39) { //right arrow
+			jQuery('.xxxx').click(); //Emulates click on prev button. Replace .xxxx with css class of next arrow
+		}
+	});
+});
