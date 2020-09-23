@@ -1,3 +1,9 @@
+/**
+* @snippet        Reject all malicious URL request
+* @author         Systemedic
+* @URL            https://systemedic.nl/
+*/
+
 global $user_ID; if($user_ID) {
     if(!current_user_can('administrator')) {
         if (strlen($_SERVER['REQUEST_URI']) > 255 ||
