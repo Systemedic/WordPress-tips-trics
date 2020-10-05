@@ -1,0 +1,16 @@
+To add snippets to the head of your pages use:
+
+add_action( 'wp_head', function () { ?>
+
+	<!-- header code goes here -->
+
+<?php } );
+
+
+To add snippets to the footer of your pages use:
+
+add_action( 'wp_footer', function () { ?>
+
+	<!-- footer code goes here -->
+
+<?php } );
