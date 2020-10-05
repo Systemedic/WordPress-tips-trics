@@ -5,6 +5,7 @@ For placing the snippets you can use the following plugin: https://nl.wordpress.
 
 To add snippets to the head of your pages use:
 
+[text]
 add_action( 'wp_head', function () { ?>
 
 	<!-- header code goes here -->
@@ -19,5 +20,5 @@ add_action( 'wp_footer', function () { ?>
 	<!-- footer code goes here -->
 
 <?php } );
-
+[text]
 Have fun :-)
