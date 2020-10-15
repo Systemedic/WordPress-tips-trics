@@ -1,0 +1,26 @@
+/* Make the photo sliders suitable for each screen height. To do this add a custom class photoslider to the photoslider section within elementor */
+@media all and (max-height:780px){
+.photoslider .swiper-slide-image{
+	max-height:605px !important;
+	}
+}
+
+@media all and (max-height:800px){
+.photoslider .swiper-slide-image{
+	max-height:625px !important;
+	}
+}
+
+@media all and (max-height:600px){
+.photoslider .swiper-slide-image{
+	max-height:410px !important;
+		
+	}
+}
+
+@media all and (max-height:500px){
+.photoslider .swiper-slide-image{
+	max-height:302px !important;
+		
+	}
+}
