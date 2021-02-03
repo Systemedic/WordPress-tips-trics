@@ -1,3 +1,9 @@
+/**
+* @snippet        Add extra colimn in medialibrary detailed view to show file size
+* @author         Systemedic
+* @URL            https://systemedic.nl/
+*/
+
 add_filter( 'manage_media_columns', 'sk_media_columns_filesize' );
 /**
  * Filter the Media list table columns to add a File Size column.
