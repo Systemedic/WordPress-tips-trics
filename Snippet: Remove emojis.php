@@ -1,8 +1,8 @@
-/**
+/************************************************************
 * @snippet        Disable emojis
 * @author         Systemedic
 * @URL            https://systemedic.nl/
-*/
+************************************************************/
 
 function disable_emojis() {
     remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
