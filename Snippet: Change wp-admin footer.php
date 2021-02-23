@@ -1,8 +1,8 @@
-/**
+/************************************************************
 * @snippet        Snippet: Change wp-admin footer
 * @author         Systemedic
 * @URL            https://systemedic.nl/
-*/
+************************************************************/
 
 function remove_footer_admin () {
  
