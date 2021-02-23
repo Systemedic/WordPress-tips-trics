@@ -1,8 +1,8 @@
-/**
+/************************************************************
 * @snippet       set different colors for pages/posts in different statuses
 * @author        Systemedic
 * @URL			 https://systemedic.nl/
-*/
+************************************************************/
 
 add_action('admin_footer','posts_status_color');
 function posts_status_color(){
