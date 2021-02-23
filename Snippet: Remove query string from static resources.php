@@ -1,8 +1,8 @@
-/**
+/************************************************************
 * @snippet        Remove query string from static resources
 * @author         Systemedic
 * @URL            https://systemedic.nl/
-*/
+************************************************************/
  
 function remove_cssjs_ver( $src ) {
     if ( strpos( $src, '?ver=' ) )
