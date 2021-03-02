@@ -1,3 +1,5 @@
+CURRENTLY THIS IS GIVING PROBLEMS WITH ELEMENTOR
+
 /**
 * @snippet        Remove jQuery Migrate Script.php
 * @author         Systemedic
