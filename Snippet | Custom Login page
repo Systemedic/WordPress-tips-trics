@@ -1,0 +1,26 @@
+/****************************************************************
+* @snippet        Change Login page
+* @author         Systemedic
+* @URL            https://systemedic.nl/
+*****************************************************************/
+function my_login_logo() { ?>
+    <style type="text/css">
+      #login h1 a, .login h1 a {
+      background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/logo_black.png); /*place image in child theme folder*/
+		  height:175px; 
+		  width:320px; /*max width = 320px*/
+		  background-size: 320px 175px; /*max width = 320px*/
+		  background-repeat: no-repeat;
+      padding-bottom: 20px;
+      margin-left: 20px;
+        }
+        
+      body.login {
+      background-image: url('https://i.redd.it/c3uhsgo1vx541.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+}   
+    </style>
+<?php }
+add_action( 'login_enqueue_scripts', 'my_login_logo' );
