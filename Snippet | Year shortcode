@@ -1,7 +1,8 @@
-/**
+/************************************************************
 * @description    Create a shortcode to show the current year, For use in the footer for example. Use [year] as shortcode.
 * @author         Systemedic
 * @URL            https://systemedic.nl
+************************************************************/
 
 function year_shortcode() {
   $year = date('Y');
