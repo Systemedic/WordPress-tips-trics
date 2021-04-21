@@ -1,9 +1,8 @@
-/**
+/****************************************************************
 * @snippet        Downloads a URL, or returns it from the cache
 * @author         Systemedic
 * @URL            https://systemedic.nl/
-*/
-
+*****************************************************************/
 /**
 * Downloads a URL, or returns it from the cache
 * The function tries to act intelligently:
