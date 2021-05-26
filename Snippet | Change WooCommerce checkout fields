@@ -1,8 +1,9 @@
-/**
+/****************************************************************
 * @description    Change the labels and placeholders of the WooCommerce checkout fields. Order is the segment of the checkout page. Options are: billing, shipping, account, order.
 * @description    order_comments can be changed to the name of the field. For a list of fields: https://docs.woocommerce.com/document/tutorial-customising-checkout-fields-using-actions-and-filters/
 * @author         Systemedic
 * @URL            https://systemedic.nl
+*****************************************************************/
 
 function md_custom_woocommerce_checkout_fields( $fields ) 
 {
